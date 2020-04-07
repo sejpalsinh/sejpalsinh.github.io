@@ -71,6 +71,7 @@ function startWebRTC(isOfferer) {
   // When a remote stream arrives display it in the #remoteVideo element
   pc.onaddstream = event => {
     remoteVideo.srcObject = event.stream;
+    loadIcons();
   };
 
   navigator.mediaDevices.getUserMedia({
@@ -113,4 +114,9 @@ function localDescCreated(desc) {
     () => sendMessage({'sdp': pc.localDescription}),
     onError
   );
+}
+
+function loadIcons() {
+  $("#drop1").show();
+  $("#drop2").show();
 }
