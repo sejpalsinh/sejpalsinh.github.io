@@ -1,9 +1,20 @@
-// Generate random room name if needed
-if (!location.hash) {
-  location.hash = Math.floor(Math.random() * 0xFFFFFF).toString(16);
-}
-const roomHash = location.hash.substring(1);
+var roomHash;
 
+$(function() {
+  if(location.hash.length == 8)
+  {
+    console.log( "this is Pi !" );
+    console.log(location.hash);
+    roomHash = location.hash.substring(2);
+    console.log(roomHash);
+  }
+  else {
+    console.log( "this is not Pi !" );
+    console.log(location.hash);
+    roomHash = location.hash.substring(1);
+    console.log(roomHash);
+  }
+});
 // TODO: Replace with your own channel ID
 const drone = new ScaleDrone('2xmbUiTsqTzukyf7');
 // Room name needs to be prefixed with 'observable-'
