@@ -10,7 +10,7 @@ $(function() {
 
   if(location.hash.length == 8)
   {
-    console.log( " virsion 1 this util is Pi !" );
+    console.log( " virsion 2 this util is Pi !" );
     console.log(location.hash);
     id = location.hash.substring(2);
     console.log(roomHash);
@@ -25,7 +25,7 @@ $(function() {
     //===============================
   }
   else {
-    console.log( " virsion 1 this util is not Pi !" );
+    console.log( " virsion 2 this util is not Pi !" );
     console.log(location.hash);
     id = location.hash.substring(1);
     isthispi = false;
@@ -283,16 +283,16 @@ function f_mute() {
     $("#f_mute").removeClass("fa-volume-up");
     $("#f_mute").addClass("fa-volume-off");
    // $('.audio').prop("volume", 0.0);
-	  $(this).data('muted',true);
-	  console.log("1");
+	  document.getElementById("remoteVideo").muted = true;
+	  console.log("mute 2");
   }
   else {
     flag_mute = true;
     $("#f_mute").removeClass("fa-volume-off");
     $("#f_mute").addClass("fa-volume-up");
     $('.audio').prop("volume", 1.0);
-	  $(this).data('muted',false);
-	  console.log("unmute 1");
+	  
+	  console.log("unmute 2");
   }
 }
 
