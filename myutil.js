@@ -64,7 +64,7 @@ function checkSetDatabase(){
   var startListening = function() {
      dbRef.on('value', function(snapshot) {
         var warehouse = snapshot.val();    // child id
-        alert(warehouse.flag_n);
+        //alert(warehouse.flag_n);
         if(isthispi == true)
         {
           if(warehouse.flag_t == 1)
