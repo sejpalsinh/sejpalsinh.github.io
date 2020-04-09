@@ -10,7 +10,7 @@ $(function() {
 
   if(location.hash.length == 8)
   {
-    console.log( " virsion 3 this util is Pi !" );
+    console.log( "this util is Pi !" );
     console.log(location.hash);
     id = location.hash.substring(2);
     console.log(roomHash);
@@ -21,11 +21,11 @@ $(function() {
     flag_mute = false;
     $("#f_mute").removeClass("fa-volume-up");
     $("#f_mute").addClass("fa-volume-off");
-    $('.audio').prop("volume", 0.0);
+    document.getElementById("remoteVideo").muted = true;
     //===============================
   }
   else {
-    console.log( " virsion 3 this util is not Pi !" );
+    console.log( "this util is not Pi !" );
     console.log(location.hash);
     id = location.hash.substring(1);
     isthispi = false;
@@ -59,12 +59,12 @@ firebase.analytics();
 
 function checkSetDatabase(){
   var path = "User/"+id;
- // alert(path)
+  alert(path)
 	var dbRef = firebase.database().ref(path);
   var startListening = function() {
      dbRef.on('value', function(snapshot) {
         var warehouse = snapshot.val();    // child id
-        //alert(warehouse.flag_n);
+        alert(warehouse.flag_n);
         if(isthispi == true)
         {
           if(warehouse.flag_t == 1)
@@ -76,7 +76,7 @@ function checkSetDatabase(){
               flag_mute = true;
               $("#f_mute").removeClass("fa-volume-off");
               $("#f_mute").addClass("fa-volume-up");
-              $('.audio').prop("volume", 1.0);
+              document.getElementById("remoteVideo").muted = false;
               //===============================
           }
           else {
@@ -87,7 +87,7 @@ function checkSetDatabase(){
               flag_mute = false;
               $("#f_mute").removeClass("fa-volume-up");
               $("#f_mute").addClass("fa-volume-off");
-              $('.audio').prop("volume", 0.0);
+              document.getElementById("remoteVideo").muted = true;
               //===============================
           }
         }
@@ -282,17 +282,13 @@ function f_mute() {
     flag_mute = false;
     $("#f_mute").removeClass("fa-volume-up");
     $("#f_mute").addClass("fa-volume-off");
-   // $('.audio').prop("volume", 0.0);
-	  document.getElementById("remoteVideo").muted = true;
-	  console.log("mute 2");
+    document.getElementById("remoteVideo").muted = true;
   }
   else {
     flag_mute = true;
     $("#f_mute").removeClass("fa-volume-off");
     $("#f_mute").addClass("fa-volume-up");
-    $('.audio').prop("volume", 1.0);
-	  document.getElementById("remoteVideo").muted = true;
-	  console.log("unmute 2");
+    document.getElementById("remoteVideo").muted = false;
   }
 }
 
