@@ -1,10 +1,39 @@
-var id = location.hash.substring(1); // geting id from link
+var id; // geting id from link
 var flag_d1 = true; // flag for onlick for left side menu bar
 var flag_d2 = true; // flag for onlick for left side menu bar
 var flag_noti_n = true; // flag for radio button notify when noicy
 var flag_noti_m = true; // flag for radio button notify when motion
+var flag_mute = true;
+var flag_talk = true;
+var flag_rock = true;
 $(function() {
+
+  if(location.hash.length == 8)
+  {
+    console.log( "this util is Pi !" );
+    console.log(location.hash);
+    id = location.hash.substring(2);
+    console.log(roomHash);
+    isthispi = true;
+
+
+    //=========== f_mute fuction ...
+    flag_mute = false;
+    $("#f_mute").removeClass("fa-volume-up");
+    $("#f_mute").addClass("fa-volume-off");
+    $('.audio').prop("volume", 0.0);
+    //===============================
+  }
+  else {
+    console.log( "this util is not Pi !" );
+    console.log(location.hash);
+    id = location.hash.substring(1);
+    isthispi = false;
+    console.log(roomHash);
+
+  }
     console.log( "ready!" );
+    checkSetDatabase();
     hideAllButtons();
     flag_d1 = true;
     flag_d2 = true;
@@ -12,7 +41,7 @@ $(function() {
     flag_noti_n = true;
 });
 
-
+//==================================== firebase functions =================================================
 
 var firebaseConfig = {
   apiKey: "AIzaSyA3KOd6r7UboAp0fvtnvJSU9umfOXXgNDQ",
@@ -27,6 +56,79 @@ var firebaseConfig = {
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig);
 firebase.analytics();
+
+function checkSetDatabase(){
+  var path = "User/"+id;
+  alert(path)
+	var dbRef = firebase.database().ref(path);
+  var startListening = function() {
+     dbRef.on('value', function(snapshot) {
+        var warehouse = snapshot.val();    // child id
+        alert(warehouse.flag_n);
+        if(isthispi == true)
+        {
+          if(warehouse.flag_t == 1)
+          {
+              //=========== f_talk fuction ... mute
+              flag_talk = false;
+              $("#f_talk").css("color", "green");
+              //=========== f_mute fuction ... unmute
+              flag_mute = true;
+              $("#f_mute").removeClass("fa-volume-off");
+              $("#f_mute").addClass("fa-volume-up");
+              $('.audio').prop("volume", 1.0);
+              //===============================
+          }
+          else {
+              //=========== f_talk fuction ... unmute
+              flag_talk = true;
+              $("#f_talk").css("color", "#ffffff");
+              //=========== f_mute fuction ... mute
+              flag_mute = false;
+              $("#f_mute").removeClass("fa-volume-up");
+              $("#f_mute").addClass("fa-volume-off");
+              $('.audio').prop("volume", 0.0);
+              //===============================
+          }
+        }
+        if(warehouse.flag_r == 1)
+        {
+          flag_rock = false;
+          $("#f_rock").css("color", "blue");
+        }
+        else {
+          flag_rock = true;
+          $("#f_rock").css("color", "#ffffff");
+        }
+        if(warehouse.flag_n == 1)
+        {
+
+        }
+        else if(warehouse.flag_n == 2)
+        {
+
+        }
+        else if(warehouse.flag_n == 3)
+        {
+
+        }
+        else {
+
+        }
+		align(warehouse);
+	  });
+ }
+startListening();
+}
+
+function UpdateDbData(fild_name,fild_value)
+{
+   var updates = {};
+   updates['/User/'+id+'/'+fild_name] =fild_value;
+   firebase.database().ref().update(updates);
+}
+
+//=================================================================================================
 
 // function for right hand side menu
 function drop1() {
@@ -67,8 +169,6 @@ function drop2() {
     //disable left side menu
     flag_d1 = false;
     drop1();
-
-
     flag_d2 = false;
     $("#drop2").removeClass("fa-navicon");
     $("#drop2").addClass("fa-close");
@@ -98,11 +198,29 @@ function motion_n() {
     flag_noti_m = false;
     $("#motion_n").removeClass("fa-circle-o");
     $("#motion_n").addClass("fa-dot-circle-o");
+    if(flag_noti_n == false)
+    {
+      //3  flag_n
+      UpdateDbData("flag_n","3");
+    }
+    else {
+      UpdateDbData("flag_n","1");
+      //1   flag_n
+    }
   }
   else {
     flag_noti_m = true;
     $("#motion_n").removeClass("fa-dot-circle-o");
     $("#motion_n").addClass("fa-circle-o");
+    if(flag_noti_n == false)
+    {
+      UpdateDbData("flag_n","2");
+    //  2   flag_n
+    }
+    else {
+      UpdateDbData("flag_n","4");
+    //  4   flag_n
+    }
   }
 }
 
@@ -114,11 +232,29 @@ function noice_n() {
     flag_noti_n = false;
     $("#noice_n").removeClass("fa-circle-o");
     $("#noice_n").addClass("fa-dot-circle-o");
+    if(flag_noti_m == false)
+    {
+      UpdateDbData("flag_n","3");
+    //  3   flag_n
+    }
+    else {
+      UpdateDbData("flag_n","2");
+    //  2   flag_n
+    }
   }
   else {
     flag_noti_n = true;
     $("#noice_n").removeClass("fa-dot-circle-o");
     $("#noice_n").addClass("fa-circle-o");
+    if(flag_noti_m == false)
+    {
+      UpdateDbData("flag_n","1");
+    //  1   flag_n
+    }
+    else {
+      UpdateDbData("flag_n","4");
+      //4   flag_n
+    }
   }
 }
 
@@ -141,13 +277,49 @@ function hideAllButtons() {
 }
 
 function f_mute() {
-  alert("mute");
+  if(flag_mute==true)
+  {
+    flag_mute = false;
+    $("#f_mute").removeClass("fa-volume-up");
+    $("#f_mute").addClass("fa-volume-off");
+    $('.audio').prop("volume", 0.0);
+  }
+  else {
+    flag_mute = true;
+    $("#f_mute").removeClass("fa-volume-off");
+    $("#f_mute").addClass("fa-volume-up");
+    $('.audio').prop("volume", 1.0);
+  }
 }
 
 function f_talk() {
-  alert("talk");
+  if(flag_talk==true)
+  {
+    flag_talk = false;
+    $("#f_talk").css("color", "green");
+    UpdateDbData("flag_t","1");
+    //1   flag_t
+  }
+  else {
+    flag_talk = true;
+    $("#f_talk").css("color", "#ffffff");
+    UpdateDbData("flag_t","0");
+    //0   flag_t
+  }
 }
 
 function f_rock() {
-  alert("rock");
+  if(flag_rock==true)
+  {
+    flag_rock = false;
+    $("#f_rock").css("color", "blue");
+    UpdateDbData("flag_r","1");
+    //1   flag_r
+  }
+  else {
+    flag_rock = true;
+    $("#f_rock").css("color", "#ffffff");
+    UpdateDbData("flag_r","0");
+    //0   flag_r
+  }
 }
