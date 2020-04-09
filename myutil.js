@@ -59,7 +59,7 @@ firebase.analytics();
 
 function checkSetDatabase(){
   var path = "User/"+id;
-  alert(path)
+ // alert(path)
 	var dbRef = firebase.database().ref(path);
   var startListening = function() {
      dbRef.on('value', function(snapshot) {
