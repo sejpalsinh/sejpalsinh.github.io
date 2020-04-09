@@ -10,7 +10,7 @@ $(function() {
 
   if(location.hash.length == 8)
   {
-    console.log( " virsion 2 this util is Pi !" );
+    console.log( " virsion 3 this util is Pi !" );
     console.log(location.hash);
     id = location.hash.substring(2);
     console.log(roomHash);
@@ -25,7 +25,7 @@ $(function() {
     //===============================
   }
   else {
-    console.log( " virsion 2 this util is not Pi !" );
+    console.log( " virsion 3 this util is not Pi !" );
     console.log(location.hash);
     id = location.hash.substring(1);
     isthispi = false;
