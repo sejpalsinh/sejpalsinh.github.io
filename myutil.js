@@ -282,13 +282,15 @@ function f_mute() {
     flag_mute = false;
     $("#f_mute").removeClass("fa-volume-up");
     $("#f_mute").addClass("fa-volume-off");
-    $('.audio').prop("volume", 0.0);
+   // $('.audio').prop("volume", 0.0);
+	  $(this).data('muted',true);
   }
   else {
     flag_mute = true;
     $("#f_mute").removeClass("fa-volume-off");
     $("#f_mute").addClass("fa-volume-up");
     $('.audio').prop("volume", 1.0);
+	  $(this).data('muted',false);
   }
 }
 
