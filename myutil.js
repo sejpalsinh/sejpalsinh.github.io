@@ -291,7 +291,7 @@ function f_mute() {
     $("#f_mute").removeClass("fa-volume-off");
     $("#f_mute").addClass("fa-volume-up");
     $('.audio').prop("volume", 1.0);
-	  
+	  document.getElementById("remoteVideo").muted = true;
 	  console.log("unmute 2");
   }
 }
