@@ -284,6 +284,7 @@ function f_mute() {
     $("#f_mute").addClass("fa-volume-off");
    // $('.audio').prop("volume", 0.0);
 	  $(this).data('muted',true);
+	  console.log("1");
   }
   else {
     flag_mute = true;
@@ -291,6 +292,7 @@ function f_mute() {
     $("#f_mute").addClass("fa-volume-up");
     $('.audio').prop("volume", 1.0);
 	  $(this).data('muted',false);
+	  console.log("unmute 1");
   }
 }
 
