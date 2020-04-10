@@ -6,17 +6,16 @@ var flag_noti_m = true; // flag for radio button notify when motion
 var flag_mute = true;
 var flag_talk = true;
 var flag_rock = true;
+var user_id;
 $(function() {
-
-  if(location.hash.length == 8)
+  if(location.hash.substring(1,2) == 'p')
   {
     console.log( "this util is Pi !" );
     console.log(location.hash);
-    id = location.hash.substring(2);
+    id = location.hash.substring(2,8);
     console.log(roomHash);
+    user_id = location.hash.substring(8);
     isthispi = true;
-
-
     //=========== f_mute fuction ...
     flag_mute = false;
     $("#f_mute").removeClass("fa-volume-up");
@@ -27,9 +26,10 @@ $(function() {
   else {
     console.log( "this util is not Pi !" );
     console.log(location.hash);
-    id = location.hash.substring(1);
+    id = location.hash.substring(1,7);
+    user_id = location.hash.substring(7);
     isthispi = false;
-    console.log(roomHash);
+    setDatabaseChildUser();
 
   }
     console.log( "ready!" );
@@ -100,20 +100,61 @@ function checkSetDatabase(){
           flag_rock = true;
           $("#f_rock").css("color", "#ffffff");
         }
-        if(warehouse.flag_n == 1)
+		align(warehouse);
+	  });
+ }
+startListening();
+}
+
+
+function setDatabaseChildUser(){
+  var path = "User/"+id+'/users/'+user_id;
+  //alert(path)
+	var dbRef = firebase.database().ref(path);
+  var startListening = function() {
+     dbRef.on('value', function(snapshot) {
+        var warehouse = snapshot.val();    // child id
+        if(isthispi == false)
         {
+          if(warehouse.noti_f == 1)
+          {
+            flag_noti_m = false;
+            $("#motion_n").removeClass("fa-circle-o");
+            $("#motion_n").addClass("fa-dot-circle-o");
 
-        }
-        else if(warehouse.flag_n == 2)
-        {
 
-        }
-        else if(warehouse.flag_n == 3)
-        {
+            flag_noti_n = true;
+            $("#noice_n").removeClass("fa-dot-circle-o");
+            $("#noice_n").addClass("fa-circle-o");
 
-        }
-        else {
+          }
+          else if (warehouse.noti_f == 2) {
+            flag_noti_n = false;
+            $("#noice_n").removeClass("fa-circle-o");
+            $("#noice_n").addClass("fa-dot-circle-o");
 
+            flag_noti_m = true;
+            $("#motion_n").removeClass("fa-dot-circle-o");
+            $("#motion_n").addClass("fa-circle-o");
+
+          }
+          else if (warehouse.noti_f == 3) {
+            flag_noti_m = false;
+            $("#motion_n").removeClass("fa-circle-o");
+            $("#motion_n").addClass("fa-dot-circle-o");
+            flag_noti_n = false;
+            $("#noice_n").removeClass("fa-circle-o");
+            $("#noice_n").addClass("fa-dot-circle-o");
+          }
+          else {
+            flag_noti_m = true;
+            $("#motion_n").removeClass("fa-dot-circle-o");
+            $("#motion_n").addClass("fa-circle-o");
+
+            flag_noti_n = true;
+            $("#noice_n").removeClass("fa-dot-circle-o");
+            $("#noice_n").addClass("fa-circle-o");
+          }
         }
 		align(warehouse);
 	  });
@@ -121,11 +162,26 @@ function checkSetDatabase(){
 startListening();
 }
 
+
+
 function UpdateDbData(fild_name,fild_value)
 {
    var updates = {};
    updates['/User/'+id+'/'+fild_name] =fild_value;
    firebase.database().ref().update(updates);
+}
+
+function childFlagUpdate(flag_mark)
+{
+   var updates = {};
+   updates['/User/'+id+'/users/'+user_id+'/'+'noti_f'] =flag_mark;
+   firebase.database().ref().update(updates);
+}
+
+function updateMemberList(n_user) {
+  if(n_user>2){
+    alert("Please try after sometime some one is connected");
+  }
 }
 
 //=================================================================================================
@@ -201,10 +257,10 @@ function motion_n() {
     if(flag_noti_n == false)
     {
       //3  flag_n
-      UpdateDbData("flag_n","3");
+      childFlagUpdate(3);
     }
     else {
-      UpdateDbData("flag_n","1");
+      childFlagUpdate(1);
       //1   flag_n
     }
   }
@@ -214,11 +270,11 @@ function motion_n() {
     $("#motion_n").addClass("fa-circle-o");
     if(flag_noti_n == false)
     {
-      UpdateDbData("flag_n","2");
+      childFlagUpdate(2);
     //  2   flag_n
     }
     else {
-      UpdateDbData("flag_n","4");
+      childFlagUpdate(4);
     //  4   flag_n
     }
   }
@@ -234,11 +290,11 @@ function noice_n() {
     $("#noice_n").addClass("fa-dot-circle-o");
     if(flag_noti_m == false)
     {
-      UpdateDbData("flag_n","3");
+      childFlagUpdate(3);
     //  3   flag_n
     }
     else {
-      UpdateDbData("flag_n","2");
+      childFlagUpdate(2);
     //  2   flag_n
     }
   }
@@ -248,11 +304,11 @@ function noice_n() {
     $("#noice_n").addClass("fa-circle-o");
     if(flag_noti_m == false)
     {
-      UpdateDbData("flag_n","1");
+      childFlagUpdate(1);
     //  1   flag_n
     }
     else {
-      UpdateDbData("flag_n","4");
+      childFlagUpdate(4);
       //4   flag_n
     }
   }
