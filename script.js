@@ -1,20 +1,28 @@
-var roomHash;
 
+var roomHash;
+var isthispi;
+var user_id;
 $(function() {
-  if(location.hash.length == 8)
+  if(location.hash.substring(1,2) == 'p')
   {
-    console.log( "this is Pi !" );
+    //alert("p");
+    console.log( "this script is Pi !" );
     console.log(location.hash);
-    roomHash = location.hash.substring(2);
+    roomHash = location.hash.substring(2,8);
     console.log(roomHash);
+    user_id = location.hash.substring(8);
+    isthispi = true;
   }
   else {
-    console.log( "this is not Pi !" );
+    console.log( "this script is not Pi !" );
     console.log(location.hash);
-    roomHash = location.hash.substring(1);
+    roomHash = location.hash.substring(1,7);
+    user_id = location.hash.substring(7);
+    isthispi = false;
     console.log(roomHash);
   }
 });
+
 // TODO: Replace with your own channel ID
 const drone = new ScaleDrone('2xmbUiTsqTzukyf7');
 // Room name needs to be prefixed with 'observable-'
@@ -47,9 +55,12 @@ drone.on('open', error => {
   // connected to the room (including us). Signaling server is ready.
   room.on('members', members => {
     console.log('MEMBERS', members);
+    updateMemberList(members.length);
     // If we are the second user to connect to the room we will be creating the offer
     const isOfferer = members.length === 2;
     startWebRTC(isOfferer);
+    updateMemberList(members.length);
+
   });
 });
 
@@ -130,4 +141,5 @@ function localDescCreated(desc) {
 function loadIcons() {
   $("#drop1").show();
   $("#drop2").show();
+
 }
