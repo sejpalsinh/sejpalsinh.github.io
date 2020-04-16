@@ -14,7 +14,7 @@ $(function() {
     isthispi = true;
   }
   else {
-    console.log( "this script is not Pi !" );
+    console.log( "this script is not Pi version my 2  !" );
     console.log(location.hash);
     roomHash = location.hash.substring(1,7);
     user_id = location.hash.substring(7);
