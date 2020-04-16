@@ -5,7 +5,7 @@ var user_id;
   if(location.hash.substring(1,2) == 'p')
   {
     //alert("p");
-    console.log( "this script is Pi version my 2 !" );
+    console.log( "this script is Pi version my 3 !" );
     console.log(location.hash);
     roomHash = location.hash.substring(2,8);
     console.log(roomHash);
@@ -13,7 +13,7 @@ var user_id;
     isthispi = true;
   }
   else {
-    console.log( "this script is not Pi version my 2  !" );
+    console.log( "this script is not Pi version my 3  !" );
     console.log(location.hash);
     roomHash = location.hash.substring(1,7);
     user_id = location.hash.substring(7);
