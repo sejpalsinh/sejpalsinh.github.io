@@ -2,7 +2,6 @@
 var roomHash;
 var isthispi;
 var user_id;
-$(function() {
   if(location.hash.substring(1,2) == 'p')
   {
     //alert("p");
@@ -21,10 +20,9 @@ $(function() {
     isthispi = false;
     console.log(roomHash);
   }
-});
 
 // TODO: Replace with your own channel ID
-const drone = new ScaleDrone('2xmbUiTsqTzukyf7'); // //X18ygXr6Q3ApqSVw
+const drone = new ScaleDrone('X18ygXr6Q3ApqSVw'); //2xmbUiTsqTzukyf7
 // Room name needs to be prefixed with 'observable-'
 const roomName = 'observable-' + roomHash;
 console.log('update' + roomName);
