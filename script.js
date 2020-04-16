@@ -6,7 +6,7 @@ $(function() {
   if(location.hash.substring(1,2) == 'p')
   {
     //alert("p");
-    console.log( "this script is Pi version my !" );
+    console.log( "this script is Pi version my 2 !" );
     console.log(location.hash);
     roomHash = location.hash.substring(2,8);
     console.log(roomHash);
@@ -24,7 +24,7 @@ $(function() {
 });
 
 // TODO: Replace with your own channel ID
-const drone = new ScaleDrone('X18ygXr6Q3ApqSVw'); //2xmbUiTsqTzukyf7
+const drone = new ScaleDrone('2xmbUiTsqTzukyf7'); // //X18ygXr6Q3ApqSVw
 // Room name needs to be prefixed with 'observable-'
 const roomName = 'observable-' + roomHash;
 const configuration = {
