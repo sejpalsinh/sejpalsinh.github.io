@@ -27,6 +27,7 @@ $(function() {
 const drone = new ScaleDrone('2xmbUiTsqTzukyf7'); // //X18ygXr6Q3ApqSVw
 // Room name needs to be prefixed with 'observable-'
 const roomName = 'observable-' + roomHash;
+console.log('update' + roomName);
 const configuration = {
   iceServers: [{
     urls: 'stun:stun.l.google.com:19302'
