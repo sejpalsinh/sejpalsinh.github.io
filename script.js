@@ -5,7 +5,7 @@ var user_id;
   if(location.hash.substring(1,2) == 'p')
   {
     //alert("p");
-    console.log( "this script is Pi version my 3 !" );
+    console.log( "this script is Pi version mobile !" );
     console.log(location.hash);
     roomHash = location.hash.substring(2,8);
     console.log(roomHash);
@@ -13,7 +13,7 @@ var user_id;
     isthispi = true;
   }
   else {
-    console.log( "this script is not Pi version my 3  !" );
+    console.log( "this script is not Pi version mobile !" );
     console.log(location.hash);
     roomHash = location.hash.substring(1,7);
     user_id = location.hash.substring(7);
@@ -22,7 +22,7 @@ var user_id;
   }
 
 // TODO: Replace with your own channel ID
-const drone = new ScaleDrone('X18ygXr6Q3ApqSVw'); //2xmbUiTsqTzukyf7
+const drone = new ScaleDrone('2xmbUiTsqTzukyf7'); // X18ygXr6Q3ApqSVw
 // Room name needs to be prefixed with 'observable-'
 const roomName = 'observable-' + roomHash;
 console.log('update' + roomName);
