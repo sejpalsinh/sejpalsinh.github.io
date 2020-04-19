@@ -7,6 +7,25 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width">
+  <script type="text/javascript">
+    function preloadFunc()
+    {
+          $("#drop1").hide();
+          $("#f_mute").hide();
+          $("#f_talk").hide();
+          $("#f_rock").hide();
+          $(".tag1").hide();
+          $(".tag2").hide();
+          $(".tag3").hide();
+
+          // to hide right side icons in on load
+          $("#drop2").hide();
+          $("#motion_n").closest("tr").hide();
+          $("#noice_n").closest("tr").hide();
+          $("#abount_us").closest("tr").hide();
+    }
+    window.onpaint = preloadFunc();
+</script>
 </head>
 <body>
 
