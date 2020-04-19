@@ -138,10 +138,10 @@ function localDescCreated(desc) {
 }
 
 function loadIcons() {
-  var h_1 =  document.getElementById("rightbar");
-  var h_2 =  document.getElementById("leftbar");
-  h_1.style.display = "block";
-  h_2.style.display = "block";
+//   var h_1 =  document.getElementById("rightbar");
+//   var h_2 =  document.getElementById("leftbar");
+//   h_1.style.display = "block";
+//   h_2.style.display = "block";
   $("#drop1").show();
   $("#drop2").show();
 
