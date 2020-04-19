@@ -9,6 +9,16 @@
   <meta name="viewport" content="width=device-width">
 </head>
 <body>
+    <script type="text/javascript">
+    function preloadFunc()
+    {
+      var h_1 =  document.getElementById("rightbar");
+      var h_2 =  document.getElementById("leftbar");
+      h_1.style.display = "block";
+      h_2.style.display = "block";
+    }
+    window.onpaint = preloadFunc();
+</script>
       <video id="localVideo" autoplay muted hidden></video>
       <video poster="myloader.gif" id="remoteVideo" autoplay></video>
 
