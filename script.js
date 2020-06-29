@@ -4,7 +4,7 @@
 
 var roomHash = id = location.hash.substring(1,7);
 // TODO: Replace with your own channel ID
-const drone = new ScaleDrone('2xmbUiTsqTzukyf7'); // X18ygXr6Q3ApqSVw
+const drone = new ScaleDrone('X18ygXr6Q3ApqSVw'); //  2xmbUiTsqTzukyf7
 // Room name needs to be prefixed with 'observable-'
 const roomName = 'observable-' + roomHash;
 console.log('update' + roomName);
@@ -36,7 +36,7 @@ drone.on('open', error => {
   // connected to the room (including us). Signaling server is ready.
   room.on('members', members => {
     console.log('MEMBERS', members);
-    console.log("updated updated");
+    console.log("updated 2 updated");
     // If we are the second user to connect to the room we will be creating the offer
     const isOfferer = members.length === 2;
     startWebRTC(isOfferer);
