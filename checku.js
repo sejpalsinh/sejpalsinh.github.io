@@ -25,7 +25,7 @@ $(document).ready( function () {
         }
       });
       room.on('members', members => {
-        console.log("key 2 update");
+        console.log("key 3 update");
         console.log('MEMBERS', members);
         document.getElementById("con").innerHTML = members.length;
       });
