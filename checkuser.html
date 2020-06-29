@@ -2,7 +2,7 @@
 <script type='text/javascript' src='scaledrone.min.js'></script>
 <script>
 var roomHash = id = location.hash.substring(1,7);
-const drone = new ScaleDrone('2xmbUiTsqTzukyf7'); // X18ygXr6Q3ApqSVw
+const drone = new ScaleDrone('X18ygXr6Q3ApqSVw'); // 
 const roomName = 'observable-' + roomHash;
 console.log('update' + roomName);
 const configuration = {
@@ -27,6 +27,7 @@ drone.on('open', error => {
     }
   });
   room.on('members', members => {
+    console.log("key update");
     console.log('MEMBERS', members);
     document.getElementById("con").innerHTML = members.length;
   });
