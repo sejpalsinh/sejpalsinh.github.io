@@ -52,6 +52,11 @@ drone.on('open', error => {
     console.log("leave leave leave");
     UpdateDbData("noty",0);
   });
+  
+  room.on('message', message => {
+  console.log("msg msg "+message);
+    sendMessage("im on");
+});
 
 });
 
